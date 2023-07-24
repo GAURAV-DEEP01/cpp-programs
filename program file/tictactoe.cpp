@@ -1,11 +1,13 @@
 #include<iostream>
 using namespace std;
 void displayTile(char (&board)[3][3]){
-    cout<<board[0][0]<<"   |   "<<board[0][1]<<"   |   "<<board[0][2]<<endl;
-    cout<<"-----------------"<<endl;
-    cout<<board[1][0]<<"   |   "<<board[1][1]<<"   |   "<<board[1][2]<<endl;
-    cout<<"-----------------"<<endl;
-    cout<<board[2][0]<<"   |   "<<board[2][1]<<"   |   "<<board[2][2]<<endl;
+    cout<<endl;
+    cout<<"\t   "<<board[0][0]<<"   |   "<<board[0][1]<<"   |   "<<board[0][2]<<endl;
+    cout<<"\t-----------------------"<<endl;
+    cout<<"\t   "<<board[1][0]<<"   |   "<<board[1][1]<<"   |   "<<board[1][2]<<endl;
+    cout<<"\t-----------------------"<<endl;
+    cout<<"\t   "<<board[2][0]<<"   |   "<<board[2][1]<<"   |   "<<board[2][2]<<endl;
+    cout<<endl;
 }
 bool isGameOver(int &moves ,char (&board)[3][3]){
     if(moves==9)
@@ -36,11 +38,11 @@ bool isValidMove(char (&board)[3][3],int row, int col){
 int main (){
     char currentPlayer='x',board[3][3] ={{'1','2','3'},{'4','5','6'},{'7','8','9'}};
     int moves=0,row ,col;
-    cout<<"start the game"<<endl;
+    cout<<"Start the Game:"<<endl<<"\t      TIC TAC TOE"<<endl;
     displayTile(board);
     while (!isGameOver(moves,board))
         {   
-            cout<<"Enter the 2d position of player :"<<currentPlayer<<endl;
+            cout<<"Enter the 2d position (Row and Column) of Player : "<<currentPlayer<<endl;
             cin>>row>>col;
             row--;col--;
             if(isValidMove(board,row,col)){
@@ -51,12 +53,11 @@ int main (){
             displayTile(board);  
 
         }  
-        swapPlayer(currentPlayer);
-        displayTile(board);   
+        swapPlayer(currentPlayer);  
         if (moves==9)
-            cout<<"its a tie!";
+            cout<<"Its a tie!";
         else{
-            cout<<currentPlayer<<" won";
+            cout<<"\t\t"<<currentPlayer<<" Won!"<<endl;
         }
         return 0;
 }
