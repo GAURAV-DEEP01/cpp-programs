@@ -41,27 +41,17 @@ bool isValidMove(char (&board)[3][3],int (&matrixPos)[2],int position){
 }
 
 void convertToRowCol(int position,int (&matrixPos)[2]){
-    switch (position){
-        case 1:matrixPos[0]=0; matrixPos[1]=0;
-            break;
-        case 2:matrixPos[0]=0; matrixPos[1]=1;
-            break;
-        case 3:matrixPos[0]=0; matrixPos[1]=2;
-            break;
-        case 4:matrixPos[0]=1; matrixPos[1]=0;
-            break;
-        case 5:matrixPos[0]=1; matrixPos[1]=1;
-            break;
-        case 6:matrixPos[0]=1; matrixPos[1]=2;
-            break;
-        case 7:matrixPos[0]=2; matrixPos[1]=0;
-            break;
-        case 8:matrixPos[0]=2; matrixPos[1]=1;
-            break;
-        case 9:matrixPos[0]=2; matrixPos[1]=2;
-            break;    
-         default:
-            break;
+    if (position>0 && position < 4){
+        matrixPos[0]=0;
+        matrixPos[1]=position-1;
+    }
+    if (position>3 && position < 7){
+        matrixPos[0]=1;
+        matrixPos[1]=position-4;
+    }
+    if (position>6 && position < 10){
+        matrixPos[0]=2;
+        matrixPos[1]=position-7;
     }
 }
 
