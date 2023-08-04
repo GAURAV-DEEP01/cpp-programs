@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+
 void displayTile(char (&board)[3][3]){
     cout<<endl;
     cout<<"\t   "<<board[0][0]<<"   |   "<<board[0][1]<<"   |   "<<board[0][2]<<endl;
@@ -9,6 +10,7 @@ void displayTile(char (&board)[3][3]){
     cout<<"\t   "<<board[2][0]<<"   |   "<<board[2][1]<<"   |   "<<board[2][2]<<endl;
     cout<<endl;
 }
+
 bool isGameOver(int &moves ,char (&board)[3][3]){
     if(moves==9)
     return true;
@@ -25,28 +27,57 @@ bool isGameOver(int &moves ,char (&board)[3][3]){
         return true;
     return false;
 }
+
 void swapPlayer(char &currentPlayer){
-    currentPlayer = currentPlayer=='x'?'o':'x';
+    currentPlayer = currentPlayer=='X'?'O':'X';
 }
-bool isValidMove(char (&board)[3][3],int row, int col){
-    if((board[row][col]=='x'||board[row][col]=='o')||((row<0||row>3)||(col<0||col>3))){
+
+bool isValidMove(char (&board)[3][3],int (&matrixPos)[2],int position){
+    if((board[matrixPos[0]][matrixPos[1]]=='x'||board[matrixPos[0]][matrixPos[1]]=='o')||(position<1||position>9)){
          cout<<"Invalid move try gain"<<endl;
          return false;
     }
     return true;
 }
+
+void convertToRowCol(int position,int (&matrixPos)[2]){
+    switch (position){
+        case 1:matrixPos[0]=0; matrixPos[1]=0;
+            break;
+        case 2:matrixPos[0]=0; matrixPos[1]=1;
+            break;
+        case 3:matrixPos[0]=0; matrixPos[1]=2;
+            break;
+        case 4:matrixPos[0]=1; matrixPos[1]=0;
+            break;
+        case 5:matrixPos[0]=1; matrixPos[1]=1;
+            break;
+        case 6:matrixPos[0]=1; matrixPos[1]=2;
+            break;
+        case 7:matrixPos[0]=2; matrixPos[1]=0;
+            break;
+        case 8:matrixPos[0]=2; matrixPos[1]=1;
+            break;
+        case 9:matrixPos[0]=2; matrixPos[1]=2;
+            break;    
+         default:
+            break;
+    }
+}
+
 int main (){
-    char currentPlayer='x',board[3][3] ={{'1','2','3'},{'4','5','6'},{'7','8','9'}};
-    int moves=0,row ,col;
+    char currentPlayer='X',board[3][3] ={{'1','2','3'},{'4','5','6'},{'7','8','9'}};
+    int moves=0,matrixPos[2]={0,0}, position;
+    cout<<"Enter the position as shown in the table"<<endl;
     cout<<"Start the Game:"<<endl<<"\t      TIC TAC TOE"<<endl;
     displayTile(board);
     while (!isGameOver(moves,board))
         {   
-            cout<<"Enter the 2d position (Row and Column) of Player : "<<currentPlayer<<endl;
-            cin>>row>>col;
-            row--;col--;
-            if(isValidMove(board,row,col)){
-                board[row][col]=currentPlayer;
+            cout<<"Player "<<currentPlayer<<" turn"<<endl;
+            cin>>position;
+            convertToRowCol(position,matrixPos);
+            if(isValidMove(board,matrixPos,position)){
+                board[matrixPos[0]][matrixPos[1]]=currentPlayer;
                 swapPlayer(currentPlayer);
                 moves++;
             }
